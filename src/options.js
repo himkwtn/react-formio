@@ -1,5 +1,3 @@
-import settingsForm from "./components/ReactExample/ReactExample.settingsForm";
-
 export const options = {
   builder: {
     basic: false,
@@ -21,17 +19,6 @@ export const options = {
           title: "Custom Select",
           key: "customSelect",
           icon: "terminal",
-          editForm: () => {
-            return {
-              components: [
-                {
-                  type: "textfield",
-                  label: "Label",
-                  key: "label",
-                },
-              ],
-            };
-          },
           schema: {
             label: "Custom Select",
             type: "select",
