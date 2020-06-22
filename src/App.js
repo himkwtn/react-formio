@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { FormBuilder, Form } from "react-formio/lib/components";
+import { options } from "./options";
 
-function App() {
+const App = () => {
+  const [show, setShow] = useState(true);
+  const toggle = () => setShow((i) => !i);
+  const [form, setForm] = useState(null);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <button onClick={toggle}>Toggle Form Builder</button>
+      {show ? (
+        <FormBuilder
+          onChange={setForm}
+          form={{ display: "form" }}
+          options={options}
+        ></FormBuilder>
+      ) : (
+        <Form form={form} onSubmit={console.log}></Form>
+      )}
     </div>
   );
-}
+};
 
 export default App;
