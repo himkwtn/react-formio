@@ -3,6 +3,10 @@ import ReactDOM from "react-dom";
 import { ReactComponent } from "react-formio";
 import settingsForm from "./ReactExample.settingsForm";
 
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 /**
  * An example React component
  *
@@ -41,14 +45,17 @@ const Custom = class extends Component {
     this._isMounted = false;
   }
 
+  // for some reason, it does not work if you don't clone the object.
+  // the value state gets mutated and have extra properties that reference the react element itself
+  // and the submission won't work.
   handleSelect = (event) => {
     const index = event.target.value;
     console.log(this.state.options[index]);
-    const { id, name, username } = this.state.options[index];
-    this.setState({ value: { id, name, username } }, () => {
+    const value = clone(this.state.options[index]);
+    this.setState({ value }, () => {
       console.log(this.state.options);
       console.log(this.state.value);
-      this.props.onChange(null, { id, name, username });
+      this.props.onChange(null, clone(this.state.options[index]));
     });
   };
 
